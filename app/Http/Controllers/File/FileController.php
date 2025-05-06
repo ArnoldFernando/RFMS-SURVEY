@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers\File;
+
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\File;
+use Illuminate\Http\Request;
+
+class FileController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $files = File::with(['category', 'user'])->get();
+        return view('file.index', compact('files'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $categories = Category::all();
+        return view('file.create', compact('categories'));
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        // $request->validate([
+        //     'file_name' => 'required|string|max:255',
+        //     'location' => 'required|string|max:255',
+        //     'description' => 'nullable|string',
+        //     'file' => 'required|file|mimes:pdf,doc,docx,jpg,png',
+        //     'civil_case_number' => 'required|string|max:255',
+        //     'lot_number' => 'required|string|max:255',
+        //     'path' => 'required|string|max:255',
+        //     'status' => 'required|in:pending,approved,rejected,deleted',
+        //     'file_category_id' => 'required|exists:file_categories,id',
+        //     'user_id' => 'required|exists:users,id',
+        // ]);
+
+        // Upload the file
+        $filePath = $request->file('file')->store('files', 'public');
+
+        File::create([
+            'file_name' => $request->file_name,
+            'location' => $request->location,
+            'description' => $request->description,
+            'file' => $filePath,
+            'civil_case_number' => $request->civil_case_number,
+            'lot_number' => $request->lot_number,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('file.index')->with('success', 'File uploaded successfully');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $categories = Category::all();
+        $file = File::with(['category', 'user'])->find($id);
+        return view('file.edit', compact('file', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        //
+    }
+}

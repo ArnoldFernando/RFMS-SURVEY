@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\File\CategoryController;
+use App\Http\Controllers\File\FileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +23,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('file', FileController::class);
+    Route::resource('category', CategoryController::class);
+});
