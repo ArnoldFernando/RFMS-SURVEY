@@ -53,7 +53,7 @@
                             <td>{{ ucfirst($file->status) }}</td>
                             <td>
                                 <a href="{{ route('file.show', $file->id) }}" class="btn btn-info btn-sm">View</a>
-                                <a href="{{ route('file.edit', $file->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <a href="{{ route('file.edit', $file->id) }}" class="btn btn-warning btn-sm">Process</a>
                                 <form action="{{ route('file.destroy', $file->id) }}" method="POST" class="d-inline">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm"
