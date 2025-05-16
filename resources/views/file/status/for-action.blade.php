@@ -61,12 +61,15 @@
                                     View
                                 </button>
 
-                                <a href="{{ route('file.edit', $file->id) }}" class="btn btn-warning btn-sm">edit</a>
+                                <a href="{{ route('status.edit', $file->id) }}" class="btn btn-warning btn-sm">Process</a>
+
+
                                 @if ($file->file && file_exists(storage_path('app/public/' . $file->file)))
                                     <a href="{{ route('files.download', $file->id) }}" class="btn btn-success">Download</a>
                                 @else
                                     No file available
                                 @endif
+
                             </td>
                         </tr>
                     @endforeach
@@ -156,6 +159,18 @@
                 $('#modal-lot_number').text(button.data('lot_number'));
                 $('#modal-status').text(button.data('status'));
             });
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{{ session('success') }}',
+                    confirmButtonText: 'OK'
+                });
+            @endif
         </script>
     @endsection
 </x-app-layout>

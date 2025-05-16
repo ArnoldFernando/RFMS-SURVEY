@@ -8,24 +8,21 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>RFMS</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    {{-- Google Fonts --}}
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         body {
-            font-family: 'Poppins';
+            font-family: 'Poppins', sans-serif;
         }
-    </style>
 
-    <style>
-        /* Fullscreen Preloader Container */
         .preloader {
             position: fixed;
             top: 0;
@@ -39,7 +36,6 @@
             z-index: 9999;
         }
 
-        /* Square Loader */
         .loader {
             width: 300px;
             height: 300px;
@@ -50,7 +46,6 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         }
 
-        /* Shimmer Content */
         .loader::after {
             content: '';
             width: calc(100% - 40px);
@@ -77,35 +72,27 @@
         }
     </style>
 
+    <!-- Extra CSS (from views) -->
+    @yield('css')
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div id="app">
+<body class="hold-transition sidebar-mini layout-fixed">
 
+    <div id="app">
         <div class="preloader">
             <span class="loader"></span>
         </div>
 
-
-
         @extends('adminlte::page')
-
-        {{--  @section('title', 'Dashboard')
-
-        @section('content_header')
-            <h1>Dashboard</h1>
-        @stop  --}}
 
         @section('content')
             <main class="py-4">
                 {{ $slot }}
             </main>
         @stop
-
-
     </div>
 
     <script>
@@ -114,7 +101,10 @@
         });
     </script>
 
-</body>
+    @yield('js')
 
+    @stack('scripts')
+
+</body>
 
 </html>

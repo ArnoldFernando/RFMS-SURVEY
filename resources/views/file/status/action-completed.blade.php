@@ -61,7 +61,8 @@
                                     View
                                 </button>
 
-                                <a href="{{ route('file.edit', $file->id) }}" class="btn btn-warning btn-sm">edit</a>
+                                <a href="{{ route('status.edit', $file->id) }}" class="btn btn-warning btn-sm">Process</a>
+
                                 @if ($file->file && file_exists(storage_path('app/public/' . $file->file)))
                                     <a href="{{ route('files.download', $file->id) }}" class="btn btn-success">Download</a>
                                 @else

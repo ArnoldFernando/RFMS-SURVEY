@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>Survey</b>RFMS',
+    'logo_img' => 'asset/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -317,37 +317,39 @@ return [
             'can' => 'manage-blog',
         ],
         [
-            'text' => 'dashboard',
+            'text' => 'Dashboard',
             'url' => '/dashboard',
-            'icon' => 'far fa-fw fa-file',
+            'icon' => 'fas fa-fw fa-cube',
             'label' => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'Files'],
         [
             'text' => 'Category',
             'url' => 'category',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-fw fa-layer-group',
         ],
         [
             'text' => 'Files',
             'url' => 'file',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-fw fa-folder',
+        ],
+        ['header' => 'File Status'],
+
+        [
+            'text' => 'For Action',
+            'url' => '/status',
+            'icon' => 'fas fa-fw fa-clock',
         ],
         [
-            'text' => 'File Status',
-            'icon' => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'For action',
-                    'url' => '#',
-                ],
-
-                [
-                    'text' => 'Action Completed',
-                    'url' => '#',
-                ],
-            ],
+            'text' => 'Action Completed',
+            'url' => '/status/show',
+            'icon' => 'fas fa-fw fa-check',
+        ],
+        [
+            'text' => 'Archived',
+            'url' => '/status/archived',
+            'icon' => 'fas fa-fw fa-box-archive',
         ],
     ],
 

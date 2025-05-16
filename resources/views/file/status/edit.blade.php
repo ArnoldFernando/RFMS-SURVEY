@@ -43,7 +43,7 @@
             </div>
         @endif
 
-        <form action="{{ route('file.update', $file->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('status.update', $file->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -51,25 +51,25 @@
                 <div class="col-md-6 mb-3">
                     <label for="file_name" class="form-label">File Name</label>
                     <input type="text" name="file_name" id="file_name" class="form-control"
-                        value="{{ old('file_name', $file->file_name) }}">
+                        value="{{ old('file_name', $file->file_name) }}" disabled>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label for="location" class="form-label">Location</label>
                     <input type="text" name="location" id="location" class="form-control"
-                        value="{{ old('location', $file->location) }}">
+                        value="{{ old('location', $file->location) }}" disabled>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
-                <textarea name="description" id="description" class="form-control">{{ old('description', $file->description) }}</textarea>
+                <textarea name="description" id="description" class="form-control" disabled>{{ old('description', $file->description) }}</textarea>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="file" class="form-label">Replace File (Optional)</label>
-                    <input type="file" name="file" id="file" class="form-control">
+                    <input type="file" name="file" id="file" class="form-control" disabled>
                     @if ($file->file)
                         <p>Current File: <a href="{{ asset('storage/' . $file->file) }}"
                                 target="_blank">{{ $file->file }}</a></p>
@@ -79,12 +79,12 @@
                 <div class="col-md-3 mb-3">
                     <label for="civil_case_number" class="form-label">Civil Case Number</label>
                     <input type="text" name="civil_case_number" id="civil_case_number" class="form-control"
-                        value="{{ old('civil_case_number', $file->civil_case_number) }}">
+                        value="{{ old('civil_case_number', $file->civil_case_number) }}" disabled>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="lot_number" class="form-label">Lot Number</label>
                     <input type="text" name="lot_number" id="lot_number" class="form-control"
-                        value="{{ old('lot_number', $file->lot_number) }}">
+                        value="{{ old('lot_number', $file->lot_number) }}" disabled>
                 </div>
             </div>
 
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="category_id" class="form-label">File Category</label>
-                    <select name="category_id" id="category_id" class="form-control">
+                    <select name="category_id" id="category_id" class="form-control" disabled>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}"
                                 {{ $file->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}

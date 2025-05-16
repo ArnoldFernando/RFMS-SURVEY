@@ -12,7 +12,7 @@
 
     <style>
         body {
-            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-image: url('{{ asset('asset/bg.jpg') }}');
 
             /* Replace with your own URL or asset */
@@ -36,6 +36,10 @@
         form {
             padding: 0 1em 0;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -43,8 +47,9 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <div class="card p-4 text-light">
-                    <div class="text-center mb-4">
+                <div class="card pt-4 text-light"
+                    style="backdrop-filter: blur(12px) saturate(120%); background-color: rgba(38, 89, 14, 0.55); border: 1px solid rgba(255,255,255,0.18); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
+                    <div class="text-center mb- px-4">
                         <img src="{{ asset('asset/logo.png  ') }}" alt="Logo" class="img-fluid"
                             style="width: 70px;">
                         <div class="text-center fs-4">{{ __('WELCOME TO PENRO') }}</div>
@@ -82,7 +87,7 @@
                                     </div>
 
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        <a class="mt-1 text-white text-end" href="{{ route('password.request') }}">
                                             {{ __('Forgot Your Password?') }}
                                         </a>
                                     @endif
@@ -91,14 +96,16 @@
 
                                 <div class="row mb-0">
                                     <div class="">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="btn btn-primary w-100">
                                             {{ __('Login') }}
                                         </button>
                                     </div>
                                 </div>
 
                                 <div class="m-3">
-                                    <p>dont have account? <a href="{{ route('register') }}">Register here</a></p>
+                                    <p>dont have account? <a href="{{ route('register') }}"
+                                            class="text-danger">Register
+                                            here</a></p>
                                 </div>
                             </form>
                         </div>

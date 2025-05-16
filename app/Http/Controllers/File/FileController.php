@@ -61,7 +61,7 @@ class FileController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('file.index')->with('success', 'File uploaded successfully');
+        return redirect()->route('file.create')->with('success', 'File uploaded successfully');
     }
 
     /**
@@ -85,16 +85,47 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
+    public function update(Request $request, File $file)
+    {
+        // $request->validate([
+        //     'file_name' => 'string|max:255',
+        //     'location' => 'string|max:255',
+        //     'description' => 'nullable|string',
+        //     'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png',
+        //     'civil_case_number' => 'string|max:255',
+        //     'lot_number' => 'string|max:255',
+        //     'path' => 'string|max:255',
+        //     'status' => 'in:for_action,action_completed,archived',
+        //     'category_id' => 'categories,id',
+        //     'user_id' => auth()->id(),
+        // ]);
+
+        if ($request->hasFile('file')) {
+            $filePath = $request->file('file')->store('files', 'public');
+            $file->file = $filePath;
+        }
+
+        $file->update($request->except(['file']));
+
+        return redirect()->route('file.index')->with('success', 'File updated successfully');
+    }
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function downloadFile($id)
     {
-        //
+        $file = File::findOrFail($id);
+        $path = storage_path('app/public/' . $file->file);
+
+        if (!file_exists($path)) {
+            abort(404, 'File not found');
+        }
+
+        // Ensure the filename has the correct extension
+        $originalExtension = pathinfo($path, PATHINFO_EXTENSION);
+        $customFileName = $file->file_name . '.' . $originalExtension;
+
+        return response()->download($path, $customFileName);
     }
 }

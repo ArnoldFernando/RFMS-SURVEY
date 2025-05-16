@@ -4,6 +4,7 @@ namespace App\Http\Controllers\File;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\File;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -42,15 +43,17 @@ class CategoryController extends Controller
         $fileCategory->description = $request->input('description');
         $fileCategory->save();
 
-        return redirect()->route('category.index')->with('success', 'File category created successfully.');
+        return redirect()->back()->with('success', 'File category created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
-        //
+        $category = Category::with('files')->findOrFail($id);
+        return view('file.category.show', compact('category'));
     }
 
     /**
@@ -78,7 +81,7 @@ class CategoryController extends Controller
         $fileCategory->description = $request->input('description');
         $fileCategory->save();
 
-        return redirect()->route('category.index')->with('success', 'File category updated successfully.');
+        return redirect()->back()->with('success', 'File category updated successfully.');
     }
 
     /**
