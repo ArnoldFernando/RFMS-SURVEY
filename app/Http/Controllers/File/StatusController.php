@@ -61,29 +61,18 @@ class StatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, File $file)
+    public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'file_name' => 'string|max:255',
-        //     'location' => 'string|max:255',
-        //     'description' => 'nullable|string',
-        //     'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png',
-        //     'civil_case_number' => 'string|max:255',
-        //     'lot_number' => 'string|max:255',
-        //     'path' => 'string|max:255',
-        //     'status' => 'in:for_action,action_completed,archived',
-        //     'category_id' => 'categories,id',
-        //     'user_id' => auth()->id(),
-        // ]);
+        $request->validate([
+            'status' => 'required|in:for_action,action_completed,archived',
+        ]);
 
-        if ($request->hasFile('file')) {
-            $filePath = $request->file('file')->store('files', 'public');
-            $file->file = $filePath;
-        }
+        $file = File::findOrFail($id); // Replace File with your model class
 
-        $file->update($request->except(['file']));
+        $file->status = $request->status;
+        $file->save();
 
-        return redirect()->intended()->with('success', 'File updated successfully');
+        return redirect()->back()->with('success', 'Status updated successfully!');
     }
 
     /**

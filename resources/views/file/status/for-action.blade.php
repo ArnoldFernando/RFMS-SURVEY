@@ -33,8 +33,20 @@
 
     @section('content')
         <div class="container-fluid">
-            <div class="d-flex justify-content-end mb-3">
-                <a href="{{ route('file.create') }}" class="btn btn-primary">Upload File</a>
+
+
+
+
+            <div class="d-flex justify-content-end align-items-center mb-3 gap-2">
+                <form method="GET" action="{{ route('files.export') }}">
+                    <input type="hidden" name="status" value="for_action">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                    </button>
+                </form>
+                <a href="{{ route('file.create') }}" class="btn btn-primary">
+                    <i class="bi bi-upload"></i> Upload File
+                </a>
             </div>
 
             <table class="table table-bordered table-striped table-hover" id="myTable" style="width: 100%;">

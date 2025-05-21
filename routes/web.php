@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::resource('file', FileController::class);
     Route::get('/files/download/{id}', [FileController::class, 'downloadFile'])->name('files.download');
+    Route::get('/export-files', [FileController::class, 'exportByStatus'])->name('files.export');
+    Route::get('/export-all-files', [FileController::class, 'exportAllFiles'])->name('files.export.all');
 
     Route::resource('category', CategoryController::class);
     Route::resource('status', StatusController::class);

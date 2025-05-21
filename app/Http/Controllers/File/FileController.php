@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\File;
 
+use App\Exports\AllFilesExport;
+use App\Exports\FilesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\File;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class FileController extends Controller
 {
@@ -127,5 +130,22 @@ class FileController extends Controller
         $customFileName = $file->file_name . '.' . $originalExtension;
 
         return response()->download($path, $customFileName);
+    }
+
+
+    public function exportByStatus(Request $request)
+    {
+        $status = $request->query('status');
+
+        if (!in_array($status, ['for_action', 'action_completed', 'archived'])) {
+            return redirect()->back()->with('error', 'Invalid status selected.');
+        }
+
+        return Excel::download(new FilesExport($status), "files_{$status}.xlsx");
+    }
+
+    public function exportAllFiles()
+    {
+        return Excel::download(new AllFilesExport, 'all_files.xlsx');
     }
 }
