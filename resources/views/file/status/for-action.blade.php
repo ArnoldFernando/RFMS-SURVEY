@@ -27,7 +27,7 @@
     @stop
 
     @section('content_header')
-        <h5 class="fw-semibold text-md">File Management</h5>
+        <h5 class="fw-semibold text-md">For Action File Management</h5>
         <hr class="mt-0">
     @stop
 
@@ -41,7 +41,7 @@
                 <form method="GET" action="{{ route('files.export') }}">
                     <input type="hidden" name="status" value="for_action">
                     <button type="submit" class="btn btn-success">
-                        <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                        <i class="fa-solid fa-file-export"></i></i> Export to Excel
                     </button>
                 </form>
                 <a href="{{ route('file.create') }}" class="btn btn-primary">

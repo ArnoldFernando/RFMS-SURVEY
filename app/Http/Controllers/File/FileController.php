@@ -6,6 +6,7 @@ use App\Exports\AllFilesExport;
 use App\Exports\FilesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Communication;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -118,7 +119,7 @@ class FileController extends Controller
      */
     public function downloadFile($id)
     {
-        $file = File::findOrFail($id);
+        $file = Communication::findOrFail($id);
         $path = storage_path('app/public/' . $file->file);
 
         if (!file_exists($path)) {

@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('communications', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
+            $table->string('tracking_number')->nullable();
             $table->string('location')->nullable();
             $table->text('description')->nullable();
             $table->text('file')->nullable();
-            $table->string('civil_case_number')->nullable();
-            $table->string('lot_number')->nullable();
-            $table->enum('status', ['for_action', 'action_completed', 'archived'])->default('for_action');
-            $table->foreignId('category_id')->constrained();
+            $table->enum('status', ['in_coming', 'out_going'])->default('in_coming');
             $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('communications');
     }
 };

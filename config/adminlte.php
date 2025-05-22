@@ -320,7 +320,7 @@ return [
             'text' => 'Dashboard',
             'url' => '/dashboard',
             'icon' => 'fas fa-fw fa-cube',
-            'label' => 4,
+            // 'label' => 4,
             'label_color' => 'success',
         ],
         ['header' => 'Files'],
@@ -328,6 +328,8 @@ return [
             'text' => 'Category',
             'url' => 'category',
             'icon' => 'fas fa-fw fa-layer-group',
+            'active' => ['category', 'category/*'],
+
         ],
         [
             'text' => 'Files',
@@ -348,8 +350,27 @@ return [
         ],
         [
             'text' => 'Archived',
-            'url' => '/status/archived',
+            'url' => '/archived/status',
             'icon' => 'fas fa-fw fa-box-archive',
+        ],
+
+        ['header' => 'Communication'],
+
+        [
+            'text' => 'All Communication',
+            'url' => '/communication',
+            'icon' => 'fas fa-fw fa-tower-cell',
+            'active' => ['communication/create', 'communication/*'],
+        ],
+        [
+            'text' => 'In-coming',
+            'url' => '/incoming/communication',
+            'icon' => 'fas fa-fw fa-file-zipper',
+        ],
+        [
+            'text' => 'Out-Going',
+            'url' => '/outgoing/communication',
+            'icon' => 'fas fa-fw fa-file',
         ],
     ],
 
