@@ -34,7 +34,11 @@
 
     @section('content')
         <div class="container-fluid">
-            <h2> {{ $category->name }}</h2>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">{{ $category->name }}</h2>
+                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Go Back</button>
+            </div>
+
             @if ($category->files->count())
                 <table class="table table-bordered table-striped table-hover" id="myTable" style="width: 100%;">
                     <thead>
