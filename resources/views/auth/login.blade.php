@@ -54,7 +54,7 @@
                     <div class="text-center mb- px-4">
                         <img src="{{ asset('asset/logo.png  ') }}" alt="Logo" class="img-fluid"
                             style="width: 70px;">
-                        <div class="text-center fs-4">{{ __('WELCOME TO PENRO') }}</div>
+                        <div class="text-center fs-4">{{ __('WELCOME TO SURVEY RFMS') }}</div>
 
                         <div class="card-body">
                             <form method="POST" action="{{ route('login') }}" class="">

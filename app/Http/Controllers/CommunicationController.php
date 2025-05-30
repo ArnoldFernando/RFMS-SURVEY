@@ -15,7 +15,10 @@ class CommunicationController extends Controller
      */
     public function index()
     {
-        $files = Communication::with('user')->get();
+        $files = Communication::with('user')
+            ->orderBy('created_at', 'desc') // Sort by newest first
+            ->get();
+
         return view('communication.index', compact('files'));
     }
 
@@ -48,10 +51,11 @@ class CommunicationController extends Controller
         $request->validate([
             'file_name' => 'required|string',
             'tracking_number' => 'required|string',
-            'location' => 'required|string',
+            'location' => 'nullable|string',
             'description' => 'nullable|string',
             'file' => 'nullable|file',  // make file nullable here
             'status' => 'required|string',
+            'date' => 'nullable|date',
         ]);
         $filePath = null;
 
@@ -66,6 +70,7 @@ class CommunicationController extends Controller
             'description' => $request->description,
             'file' => $filePath,  // will be null if no file uploaded
             'status' => $request->status,
+            'date' => $request->date,
             'user_id' => auth()->id(),
         ]);
 
@@ -99,6 +104,7 @@ class CommunicationController extends Controller
             'tracking_number' => 'required|string',
             'location' => 'required|string',
             'status' => 'required|string',
+            'date' => 'nullable|date',
             'description' => 'nullable|string',
         ]);
 
@@ -108,6 +114,7 @@ class CommunicationController extends Controller
             'tracking_number' => $request->tracking_number,
             'location' => $request->location,
             'status' => $request->status,
+            'date' => $request->date,
             'description' => $request->description,
         ]);
 

@@ -16,6 +16,7 @@ class Communication extends Model
         'description',
         'file',
         'status',
+        'date',
         'user_id',
     ];
 

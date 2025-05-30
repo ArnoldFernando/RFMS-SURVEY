@@ -335,6 +335,8 @@ return [
             'text' => 'Files',
             'url' => 'file',
             'icon' => 'fas fa-fw fa-folder',
+            'active' => ['file', 'file/*'],
+
         ],
         ['header' => 'File Status'],
 

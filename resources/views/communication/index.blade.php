@@ -44,10 +44,10 @@
                     File</a>
             </div>
 
-
             <table class="table table-bordered table-striped table-hover" id="myTable" style="width: 100%;">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>File Name</th>
                         <th>Tracking No.</th>
                         <th>Location</th>
@@ -56,11 +56,25 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $counter = 1; @endphp
                     @foreach ($files as $file)
                         <tr>
-                            <td>{{ $file->file_name }}</td>
+                            <td>{{ $counter++ }}</td>
+                            @php
+                                $words = explode(' ', $file->file_name);
+                                $chunked = array_chunk($words, 5); // change 4 to however many words per line you want
+                                $formattedFileName = collect($chunked)
+                                    ->map(fn($chunk) => implode(' ', $chunk))
+                                    ->implode('<br>');
+                            @endphp
+
+                            <td>{!! $formattedFileName !!}</td>
+
+
                             <td>{{ $file->tracking_number }}</td>
-                            <td>{{ $file->location }}</td>
+                            <td>
+                                {!! wordwrap(e($file->location), 20, '<br>') !!}
+                            </td>
                             <td>{{ ucfirst($file->status) }}</td>
                             <td>
                                 <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewModal"
@@ -92,55 +106,62 @@
             </table>
         </div>
 
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <form action="{{ route('communication.update', $file->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="id" id="edit-id">
-                    <div class="modal-content">
-                        <div class="modal-header bg-warning text-dark">
-                            <h5 class="modal-title" id="editModalLabel">Edit File</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body row g-3">
-                            <div class="col-md-6">
-                                <label for="edit-file_name" class="form-label">File Name</label>
-                                <input type="text" class="form-control" name="file_name" id="edit-file_name" required>
+        @if (isset($file))
+            <!-- Edit Modal -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <form action="{{ route('communication.update', $file->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="id" id="edit-id">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-dark">
+                                <h5 class="modal-title" id="editModalLabel">Edit File</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <div class="col-md-6">
-                                <label for="edit-tracking_number" class="form-label">Tracking No.</label>
-                                <input type="text" class="form-control" name="tracking_number" id="edit-tracking_number"
-                                    required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edit-location" class="form-label">Location</label>
-                                <input type="text" class="form-control" name="location" id="edit-location" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="edit-status" class="form-label">Status</label>
-                                <select class="form-select" name="status" id="edit-status">
-                                    <option value="in_coming">INCOMING</option>
-                                    <option value="out_going">OUTGOING</option>
+                            <div class="modal-body row g-3">
+                                <div class="col-md-6">
+                                    <label for="edit-file_name" class="form-label">File Name</label>
+                                    <input type="text" class="form-control" name="file_name" id="edit-file_name"
+                                        required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-tracking_number" class="form-label">Tracking No.</label>
+                                    <input type="text" class="form-control" name="tracking_number"
+                                        id="edit-tracking_number" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" name="location" id="edit-location" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="edit-status" class="form-label">Status</label>
+                                    <select class="form-select" name="status" id="edit-status">
+                                        <option value="in_coming">INCOMING</option>
+                                        <option value="out_going">OUTGOING</option>
 
-                                </select>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="edit-date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" name="date" id="edit-date"
+                                        value="{{ old('date') }}" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="edit-description" class="form-label">Description</label>
+                                    <textarea class="form-control" name="description" id="edit-description" rows="3"></textarea>
+                                </div>
                             </div>
-                            <div class="col-12">
-                                <label for="edit-description" class="form-label">Description</label>
-                                <textarea class="form-control" name="description" id="edit-description" rows="3"></textarea>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-warning">Update</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-warning">Update</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-
-
+        @endif
 
         <!-- View Modal -->
         <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">

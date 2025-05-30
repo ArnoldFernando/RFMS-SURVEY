@@ -74,7 +74,7 @@
                     style="background: rgba(38, 89, 14, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);">
                     <div class="text-center mb-3">
                         <img src="{{ asset('asset/logo.png') }}" alt="Logo" class="img-fluid" style="width: 70px;">
-                        <div class="card-header-title">REGISTER TO PENRO</div>
+                        <div class="card-header-title">REGISTER TO SURVEY RFMS</div>
                     </div>
 
                     <div class="card-body">

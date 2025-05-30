@@ -59,13 +59,20 @@
                                 value="{{ old('location') }}" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select name="status" id="status" class="form-select" required>
                                 <option value="in_coming" selected>INCOMING</option>
                                 <option value="out_going">OUT GOING</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-12">
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date</label>
+                            <input type="date" name="date" id="date" class="form-control"
+                                value="{{ old('date', '2024-01-01') }}" required>
                         </div>
                     </div>
                 </div>
